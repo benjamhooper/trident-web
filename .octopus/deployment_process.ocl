@@ -8,7 +8,7 @@ step "hello-trident" {
         action_type = "Octopus.Script"
         properties = {
             Octopus.Action.RunOnServer = "false"
-            Octopus.Action.Script.ScriptBody = "Write-Host \"$MessageText\""
+            Octopus.Action.Script.ScriptBody = "Write-Host \"$MessageText\" environment"
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
         }
