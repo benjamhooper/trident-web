@@ -1,0 +1,34 @@
+variable "ConnectionStrings:Database" {
+    value "ConnectionString" {
+        environment = ["development", "test"]
+    }
+
+    value "ConnectionString Production" {
+        description = ""
+        environment = ["production"]
+    }
+}
+
+variable "Greeting" {
+    value "Hello, Test" {
+        environment = ["test"]
+    }
+
+    value "Hello, Production" {
+        environment = ["production"]
+    }
+}
+
+variable "MessageText" {
+    value "Hello, Development" {
+        environment = ["development"]
+    }
+
+    value "Hello, Test" {
+        environment = ["test"]
+    }
+
+    value "Hello, Production" {
+        environment = ["production"]
+    }
+}

@@ -1,0 +1,57 @@
+step "hello-trident" {
+    name = "Hello Trident"
+    properties = {
+        Octopus.Action.TargetRoles = "trident-web"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = "Write-Host \"$MessageText\""
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
+
+step "update-a-database" {
+    name = "Update a database"
+    properties = {
+        Octopus.Action.TargetRoles = "trident-web"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                $randomNumber = Get-Random -Minimum 1 -Maximum 100
+                	
+                	Write-Host "The random number is $randomNumber.  If it is above 50, this will fail the step."
+                	if ($randomNumber -ge 50)
+                	{
+                		Write-Host "An error occurred verifying the application."
+                		exit 1
+                	}
+                EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
+
+step "trident-deploy-successfully" {
+    name = "Trident Deploy Successfully"
+
+    action {
+        action_type = "Octopus.Email"
+        properties = {
+            Octopus.Action.Email.Body = "Trident Deploy Successfully"
+            Octopus.Action.Email.Subject = "Trident Deploy Successfully"
+            Octopus.Action.Email.To = "ben@clear-measure.com"
+        }
+    }
+}
